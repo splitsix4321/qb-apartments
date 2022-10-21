@@ -361,7 +361,7 @@ end
 function MenuOwners()
     QBCore.Functions.TriggerCallback('apartments:GetAvailableApartments', function(apartments)
         if next(apartments) == nil then
-            QBCore.Functions.Notify(Lang:t('error.nobody_home'), "error", 3500)
+            exports['SS-Notify']:Alert("Pinehill", "Ingen är hemma", 5000, 'error')
             CloseMenuFull()
         else
             local apartmentMenu = {
@@ -463,7 +463,7 @@ RegisterNetEvent('apartments:client:SpawnInApartment', function(apartmentId, apa
     if RangDoorbell ~= nil then
         local doorbelldist = #(pos - vector3(Apartments.Locations[RangDoorbell].coords.enter.x, Apartments.Locations[RangDoorbell].coords.enter.y,Apartments.Locations[RangDoorbell].coords.enter.z))
         if doorbelldist > 5 then
-            QBCore.Functions.Notify(Lang:t('error.to_far_from_door'))
+            exports['SS-Notify']:Alert("Pinehill", "Du är för långt ifrån dörren", 5000, 'error')
             return
         end
     end
@@ -537,7 +537,7 @@ end)
 
 RegisterNetEvent('apartments:client:OpenDoor', function()
     if CurrentDoorBell == 0 then
-        QBCore.Functions.Notify(Lang:t('error.nobody_at_door'))
+        exports['SS-Notify']:Alert("Pinehill", "De är ingen vid dörren", 5000, 'error')
         return
     end
     TriggerServerEvent("apartments:server:OpenDoor", CurrentDoorBell, CurrentApartment, ClosestHouse)
